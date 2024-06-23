@@ -1,3 +1,5 @@
+import { URL } from "./url";
+
 export const getJobApllicationsForJob = async (id) => {
   const res = await fetch(`http://localhost:8000/jobApplications?jobId=${id}`, {
     method: "GET",
@@ -14,17 +16,10 @@ export const getJobApplicationById = async (id) => {
   return data;
 };
 
-export const createJobApplication = async ({
-  userId,
-  fullName,
-  job,
-  answers,
-}) => {
-  await fetch("http://localhost:8000/jobApplications", {
+export async function createJobApplication({ userId, fullName, job, answers }) {
+  await fetch(`${URL}/jobApplications`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       userId: userId,
       fullName: fullName,
@@ -32,4 +27,24 @@ export const createJobApplication = async ({
       answers,
     }),
   });
-};
+}
+
+// export const createJobApplication = async ({
+//   userId,
+//   fullName,
+//   job,
+//   answers,
+// }) => {
+//   await fetch("http://localhost:8000/jobApplications", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       userId: userId,
+//       fullName: fullName,
+//       job,
+//       answers,
+//     }),
+//   });
+// };

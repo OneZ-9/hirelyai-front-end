@@ -2,7 +2,7 @@ import { ColorRing } from "react-loader-spinner";
 
 function Spinner() {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-screen">
       <ColorRing
         visible={true}
         height="80"

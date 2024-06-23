@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
 
 import FormFieldLabel from "@/components/ui/FormFieldLabel";
 import { Button } from "@/components/ui/button";
@@ -8,22 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Briefcase, MapPin } from "lucide-react";
 import useFetchJobById from "./useFetchJobById";
 import Spinner from "@/components/shared/Spinner";
-import { useNavigate, useParams } from "react-router-dom";
-
-/*
-const job = {
-  title: "Intern - Software Engineer",
-  description:
-    "We are seeking a motivated and enthusiastic Software Engineering Intern to join our dynamic team. As a Software Engineering Intern, you will have the opportunity to work closely with experienced developers and contribute to real-world projects. This internship is designed to provide valuable hands-on experience, foster professional growth, and enhance your technical skills.",
-  type: "Full-time",
-  location: "Remote",
-  questions: [
-    "Share your academic background and highlight key programming concepts you've mastered. How has your education shaped your current tech skill set ?",
-    "Describe your professional development, emphasizing any certifications obtained. How have these certifications enriched your technical abilities, and can you provide an example of their practical application ?",
-    "Discuss notable projects in your programming experience. What challenges did you face, and how did you apply your skills to overcome them? Highlight the technologies used and the impact of these projects on your overall growth as a prefessional ?",
-  ],
-};
-*/
+import { createJobApplication } from "@/lib/services/api/jobApplications";
 
 const initialState = {
   fullName: "",
@@ -42,22 +29,24 @@ function JobForm() {
   const { fullName, answer1, answer2, answer3 } = formData;
   const params = useParams();
   const { job, isLoading } = useFetchJobById();
-  // console.log(job);
+  const { user, isSignedIn, isLoaded } = useUser();
+  console.log(user.id);
+
   const navigate = useNavigate();
 
-  async function createJobApplication(jobApplication) {
-    await fetch(`${URL}/jobApplication`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(jobApplication),
-    });
-  }
+  // async function createJobApplication(jobApplication) {
+  //   await fetch(`${URL}/jobApplications`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(jobApplication),
+  //   });
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
     // console.log(formData);
     createJobApplication({
-      userId: `uid${Math.floor(Math.random().toFixed(5) * 100000)}`,
+      userId: user?.id,
       fullName: formData.fullName,
       answers: [formData.answer1, formData.answer2, formData.answer3],
       job: params.id,
@@ -66,25 +55,29 @@ function JobForm() {
     navigate("/");
   }
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || !isLoaded) return <Spinner />;
+
+  if (!isSignedIn) {
+    return <Navigate to="/sign-in" />;
+  }
 
   return (
     <div>
       <div>
-        <h2>{job.title}</h2>
+        <h2>{job?.title}</h2>
         <div className="flex items-center gap-x-4 mt-4">
           <div className="flex items-center gap-x-2">
             <Briefcase />
-            <span>{job.type}</span>
+            <span>{job?.type}</span>
           </div>
           <div className="flex items-center gap-x-2">
-            <MapPin /> <span>{job.location}</span>
+            <MapPin /> <span>{job?.location}</span>
           </div>
         </div>
       </div>
 
       <div className="mt-4 py-4">
-        <p>{job.description}</p>
+        <p>{job?.description}</p>
       </div>
       <Separator />
 
