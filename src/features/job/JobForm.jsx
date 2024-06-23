@@ -30,17 +30,8 @@ function JobForm() {
   const params = useParams();
   const { job, isLoading } = useFetchJobById();
   const { user, isSignedIn, isLoaded } = useUser();
-  console.log(user.id);
 
   const navigate = useNavigate();
-
-  // async function createJobApplication(jobApplication) {
-  //   await fetch(`${URL}/jobApplications`, {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(jobApplication),
-  //   });
-  // }
 
   function handleSubmit(e) {
     e.preventDefault();

@@ -1,31 +1,10 @@
 import { URL } from "./url";
 
-export const getJobApllicationsForJob = async (id) => {
-  const res = await fetch(`http://localhost:8000/jobApplications?jobId=${id}`, {
-    method: "GET",
-  });
-  const data = await res.json();
-  return data;
-};
-
-export const getJobApplicationById = async (id) => {
-  const res = await fetch(`http://localhost:8000/jobApplications/${id}`, {
-    method: "GET",
-  });
-  const data = await res.json();
-  return data;
-};
-
-export async function createJobApplication({ userId, fullName, job, answers }) {
+export async function createJobApplication(jobApplication) {
   await fetch(`${URL}/jobApplications`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      userId: userId,
-      fullName: fullName,
-      job,
-      answers,
-    }),
+    body: JSON.stringify(jobApplication),
   });
 }
 
@@ -47,4 +26,20 @@ export async function createJobApplication({ userId, fullName, job, answers }) {
 //       answers,
 //     }),
 //   });
+// };
+
+// export const getJobApllicationsForJob = async (id) => {
+//   const res = await fetch(`http://localhost:8000/jobApplications?jobId=${id}`, {
+//     method: "GET",
+//   });
+//   const data = await res.json();
+//   return data;
+// };
+
+// export const getJobApplicationById = async (id) => {
+//   const res = await fetch(`http://localhost:8000/jobApplications/${id}`, {
+//     method: "GET",
+//   });
+//   const data = await res.json();
+//   return data;
 // };
