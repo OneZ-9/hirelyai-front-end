@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
+import useFetchJobById from "./hooks/useFetchJobById";
 
 import FormFieldLabel from "@/components/ui/FormFieldLabel";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { Briefcase, MapPin } from "lucide-react";
-import useFetchJobById from "./useFetchJobById";
 import Spinner from "@/components/shared/Spinner";
 import { createJobApplication } from "@/lib/services/api/jobApplications";
 

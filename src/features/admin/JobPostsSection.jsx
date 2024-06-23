@@ -1,5 +1,6 @@
+import useFetchJobs from "../job/hooks/useFetchJobs";
+
 import Spinner from "@/components/shared/Spinner";
-import useFetchJobs from "../job/useFetchJobs";
 import JobCard from "../job/JobCard";
 
 function JobPostsSection() {

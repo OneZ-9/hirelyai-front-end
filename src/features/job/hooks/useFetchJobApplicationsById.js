@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { URL } from "../../lib/services/api/url";
 import { useParams } from "react-router-dom";
+
+import { URL } from "../../../lib/services/url";
 
 export default function useFetchJobApplicationsById() {
   const [jobApplication, setJobApplication] = useState([]);

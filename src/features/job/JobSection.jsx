@@ -1,27 +1,6 @@
 import JobCard from "../job/JobCard";
 import Spinner from "@/components/shared/Spinner";
-import useFetchJobs from "./useFetchJobs";
-
-// const jobs = [
-//   {
-//     _id: "xyz",
-//     title: "Intern - Software Engineer",
-//     type: "Full-time",
-//     location: "Remote",
-//   },
-//   {
-//     _id: "abc",
-//     title: "Software Engineer",
-//     type: "Full-time",
-//     location: "Colombo, Sri Lanka",
-//   },
-//   {
-//     _id: "abc",
-//     title: "Software Architect",
-//     type: "Hybrid",
-//     location: "Rajagiriya, Sri Lanka",
-//   },
-// ];
+import useFetchJobs from "./hooks/useFetchJobs";
 
 function JobSection() {
   const { jobs, isLoading } = useFetchJobs();

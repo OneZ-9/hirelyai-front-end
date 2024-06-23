@@ -1,33 +1,39 @@
 import { useEffect, useState } from "react";
-import { URL } from "../../lib/services/api/url";
+import { useParams } from "react-router-dom";
 
-export default function useFetchJobs() {
-  const [jobs, setJobs] = useState([]);
+import { URL } from "../../../lib/services/url";
+
+export default function useFetchJobById() {
+  const [job, setJob] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  //   const [error, setError] = useState("");
+  // const [error, setError] = useState("");
+  const params = useParams();
+  // console.log(params.id);
 
   useEffect(() => {
-    async function getJobs() {
+    if (!params.id) return;
+
+    async function getJob() {
       try {
         setIsLoading(true);
         // setError("");
-        const res = await fetch(`${URL}/jobs`, {
+        const res = await fetch(`${URL}/jobs/${params.id}`, {
           method: "GET",
         });
         if (!res.ok) throw new Error("Jobs data fetching error");
 
         const data = await res.json();
-        setJobs(data);
+        setJob(data);
       } catch (err) {
         console.log(err.message);
       } finally {
         setIsLoading(false);
       }
     }
-    getJobs();
-  }, []);
+    getJob();
+  }, [params]);
 
-  return { jobs, isLoading };
+  return { job, isLoading };
 }
 
 //   useEffect(() => {

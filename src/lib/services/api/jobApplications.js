@@ -1,4 +1,4 @@
-import { URL } from "./url";
+import { URL } from "../url";
 
 export async function createJobApplication(jobApplication) {
   await fetch(`${URL}/jobApplications`, {

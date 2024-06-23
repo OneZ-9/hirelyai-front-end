@@ -1,7 +1,7 @@
-import JobForm from "@/features/job/JobForm";
+import JobApplicationForm from "@/features/job/JobApplicationForm";
 
 function JobPage() {
-  return <JobForm />;
+  return <JobApplicationForm />;
 }
 
 export default JobPage;
