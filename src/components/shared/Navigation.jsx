@@ -15,7 +15,7 @@ function Navigation() {
         <Link to={"/"}>Home</Link>
 
         <SignedIn>
-          <UserButton />
+          <UserButton showName="true" />
         </SignedIn>
 
         <SignedOut>

@@ -17,8 +17,12 @@ export default function useFetchJobById() {
       try {
         setIsLoading(true);
         // setError("");
+
+        const token = await window.Clerk.session?.getToken();
+
         const res = await fetch(`${URL}/jobs/${params.id}`, {
           method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Jobs data fetching error");
 

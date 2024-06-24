@@ -1,9 +1,14 @@
 import { URL } from "../url";
 
 export async function createJobApplication(jobApplication) {
+  const token = await window.Clerk.session?.getToken();
+
   await fetch(`${URL}/jobApplications`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(jobApplication),
   });
 }
