@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useFetchJobApplicationsById from "@/features/job/hooks/useFetchJobApplicationsById";
+import useFetchJobApplicationById from "@/features/job/hooks/useFetchJobApplicationById";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 function JobApplicationView() {
   const { jobApplication, isLoadingJobApplication } =
-    useFetchJobApplicationsById();
+    useFetchJobApplicationById();
 
   if (isLoadingJobApplication) return <Spinner />;
 

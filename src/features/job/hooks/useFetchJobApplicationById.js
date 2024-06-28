@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { URL } from "../../../lib/services/url";
 
-export default function useFetchJobApplicationsById() {
+export default function useFetchJobApplicationById() {
   const [jobApplication, setJobApplication] = useState([]);
   const [isLoadingJobApplication, setIsLoadingJobApplication] = useState(false);
   // const [error, setError] = useState("");
@@ -13,12 +13,15 @@ export default function useFetchJobApplicationsById() {
   useEffect(() => {
     if (!applicationId) return;
 
-    async function getJobApplicationsForJob() {
+    async function getJobApplicationById() {
       try {
         setIsLoadingJobApplication(true);
         // setError("");
+        const token = await window.Clerk.session.getToken();
+
         const res = await fetch(`${URL}/jobApplications/${applicationId}`, {
           method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Job application fetching error");
 
@@ -30,7 +33,7 @@ export default function useFetchJobApplicationsById() {
         setIsLoadingJobApplication(false);
       }
     }
-    getJobApplicationsForJob();
+    getJobApplicationById();
   }, [applicationId]);
 
   return { jobApplication, isLoadingJobApplication };

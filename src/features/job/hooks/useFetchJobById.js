@@ -13,7 +13,7 @@ export default function useFetchJobById() {
   useEffect(() => {
     if (!params.id) return;
 
-    async function getJob() {
+    async function getJobById() {
       try {
         setIsLoading(true);
         // setError("");
@@ -34,7 +34,7 @@ export default function useFetchJobById() {
         setIsLoading(false);
       }
     }
-    getJob();
+    getJobById();
   }, [params]);
 
   return { job, isLoading };
